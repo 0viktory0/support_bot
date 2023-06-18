@@ -1,7 +1,14 @@
+import os
+from dotenv import load_dotenv
+
 import vk_api
 from vk_api.longpoll import VkLongPoll, VkEventType
 
-vk_session = vk_api.VkApi(token="ВАШ ТОКЕН ГРУППЫ")
+load_dotenv()
+vk_token = os.getenv("VK_TOKEN")
+
+
+vk_session = vk_api.VkApi(token=vk_token)
 
 longpoll = VkLongPoll(vk_session)
 
