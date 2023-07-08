@@ -19,7 +19,7 @@ def echo(event, vk_api, project_id):
 if __name__ == '__main__':
     load_dotenv()
     project_id = os.getenv("DIALOGFLOW_PROJECT_ID")
-    vk_api_token = os.getenv('VK_API_TOKEN')
+    vk_api_token = os.getenv("VK_API_TOKEN")
 
     vk_session = vk.VkApi(token=vk_api_token)
     vk_api = vk_session.get_api()
@@ -28,15 +28,4 @@ if __name__ == '__main__':
         if event.type == VkEventType.MESSAGE_NEW and event.to_me:
             echo(event, vk_api, project_id)
 
-
-if __name__ == "__main__":
-    load_dotenv()
-    vk_token = os.getenv("VK_TOKEN")
-
-    vk_session = vk.VkApi(token=vk_token)
-    vk_api = vk_session.get_api()
-    longpoll = VkLongPoll(vk_session)
-    for event in longpoll.listen():
-        if event.type == VkEventType.MESSAGE_NEW and event.to_me:
-            echo(event, vk_api)
 

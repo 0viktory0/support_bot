@@ -52,7 +52,7 @@ if __name__ == '__main__':
     load_dotenv()
     project_id = os.getenv("DIALOGFLOW_PROJECT_ID")
 
-    with open("questions.json", 'rb') as file:
+    with open("questions.json", "rb") as file:
         intents_payload = json.load(file)
     for display_name, payload in intents_payload.items():
-        create_intent(project_id, display_name, payload['questions'], [payload['answer']])
+        create_intent(project_id, display_name, payload["questions"], [payload["answer"]])
