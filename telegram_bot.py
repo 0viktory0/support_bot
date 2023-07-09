@@ -15,10 +15,6 @@ def start(update: Update, context: CallbackContext) -> None:
     )
 
 
-def help_command(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text('Сам ты Help!')
-
-
 def echo(update: Update, context: CallbackContext) -> None:
     response = detect_intent_texts(project_id, update.effective_chat.id, [update.message.text], "ru")
     update.message.reply_text(response.fulfillment_text)
