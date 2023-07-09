@@ -1,3 +1,5 @@
+import argparse
+import pathlib
 import os
 from dotenv import load_dotenv
 import json
@@ -47,10 +49,14 @@ def create_intent(project_id, display_name, training_phrases_parts, message_text
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description="Используйте для загрузки фраз")
+    parser.add_argument("--json_path", type=pathlib.Path, help="Путь к JSON файлу")
+    args = parser.parse_args()
     load_dotenv()
     project_id = os.getenv("DIALOGFLOW_PROJECT_ID")
 
-    with open("questions.json", "rb") as file:
-        intents_payload = json.load(file)
-    for display_name, payload in intents_payload.items():
-        create_intent(project_id, display_name, payload["questions"], [payload["answer"]])
+    if args.json_path:
+        with open(args.json_path, "rb") as file:
+            intents_payload = json.load(file)
+        for display_name, payload in intents_payload.items():
+            create_intent(project_id, display_name, payload["questions"], [payload["answer"]])
