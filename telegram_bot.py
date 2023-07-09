@@ -16,11 +16,15 @@ def start(update: Update, context: CallbackContext) -> None:
 
 
 def reply(update: Update, context: CallbackContext) -> None:
+    project_id = os.getenv("DIALOGFLOW_PROJECT_ID")
     response = detect_intent_texts(project_id, update.effective_chat.id, [update.message.text], "ru")
     update.message.reply_text(response.fulfillment_text)
 
 
 def main() -> None:
+    load_dotenv()
+    tg_token = os.getenv("TG_BOT_TOKEN")
+
     updater = Updater(tg_token)
 
     dispatcher = updater.dispatcher
@@ -35,8 +39,4 @@ def main() -> None:
 
 
 if __name__ == '__main__':
-    load_dotenv()
-    project_id = os.getenv("DIALOGFLOW_PROJECT_ID")
-    tg_token = os.getenv("TG_BOT_TOKEN")
-
     main()
